@@ -80,6 +80,10 @@ public class LinkedList<T> implements MutableList<T> {
     @Override
     public void clear() {
 
+        head = null;
+        size = 0;
+
+
     }
 
     @Override
