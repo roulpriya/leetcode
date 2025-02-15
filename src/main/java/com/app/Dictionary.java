@@ -19,12 +19,12 @@ public class Dictionary<K, V> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final double LOAD_FACTOR = 0.75;
 
-    private Node<K, V>[] table;
+    private Node<K, V>[] bucket;
     private int capacity;
     private int size;
 
     public Dictionary() {
-        table = new Node[DEFAULT_CAPACITY];
+        bucket = new Node[DEFAULT_CAPACITY];
         capacity = DEFAULT_CAPACITY;
     }
 
@@ -40,7 +40,7 @@ public class Dictionary<K, V> {
         Node<K, V>[] newTable = new Node[newCapacity];
 
         for (int i = 0; i < capacity; i++) {
-            Node<K, V> node = table[i];
+            Node<K, V> node = bucket[i];
             while (node != null) {
                 int newIndex = node.key.hashCode() % newCapacity;
                 Node<K, V> nextNode = node.next;
@@ -50,7 +50,7 @@ public class Dictionary<K, V> {
             }
         }
 
-        table = newTable;
+        bucket = newTable;
         capacity = newCapacity;
     }
 
@@ -73,9 +73,9 @@ public class Dictionary<K, V> {
         int hash = key.hashCode();
         int index = hash % capacity;
 
-        Node<K, V> node = table[index];
+        Node<K, V> node = bucket[index];
         if (node == null) {
-            table[index] = new Node<>(key, value);
+            bucket[index] = new Node<>(key, value);
             size++;
         } else if(node.key.equals(key)) {
             node.value = value;
@@ -97,7 +97,7 @@ public class Dictionary<K, V> {
         int hash = key.hashCode();
         int index = hash % DEFAULT_CAPACITY;
 
-        Node<K, V> node = table[index];
+        Node<K, V> node = bucket[index];
 
         while (node != null) {
             if (node.key.equals(key)) {
