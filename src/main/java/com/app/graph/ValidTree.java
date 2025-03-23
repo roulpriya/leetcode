@@ -38,23 +38,14 @@ public class ValidTree {
         // Adjacency List:
         // 0 -> 1, 2, 3
         // 1 -> 4
-        // Use stack to keep track of unexplored array
-
         Map<Integer, Integer> parent = new HashMap<>();
         parent.put(0, -1);
 
         Queue<Integer> queue = new ArrayDeque<>();
         queue.add(0);
-
-        // Use a set to keep track of visited nodes
-        // avoid visiting the same node again
-
-        // While there are nodes remaining on the stack
-
         while(!queue.isEmpty()) {
             int node = queue.poll();
             //check for neighbours of this node
-
             for (int neighbour: adjacencyList.get(node)) {
                 if(parent.get(node) == neighbour) {
                     continue;
